@@ -1,10 +1,9 @@
 {
     "required": true,
-    "package": "team.lodestar.lodestonejs.mixin",
+    "package": "dev.cryptic.lodestonejs.mixin",
     "compatibilityLevel": "JAVA_17",
-    "refmap": "lodestone.refmap.json",
+    "refmap": "lodestonejs.refmap.json",
     "mixins": [
-
     ],
     "client": [
 

@@ -1,13 +1,13 @@
-package dev.cryptic.lodestonejs.kubejs.events;
+package dev.cryptic.lodestonejs.kubejs.events.worldevent;
 
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.world.level.Level;
-import team.lodestar.lodestone.events.types.worldevent.WorldEventCreationEvent;
+import team.lodestar.lodestone.events.types.worldevent.WorldEventDiscardEvent;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 
-public class WorldEventCreationEventJS extends WorldEventInstanceEventJS {
-    private final WorldEventCreationEvent event;
-    public WorldEventCreationEventJS(WorldEventCreationEvent worldEvent) {
+public class WorldEventDiscardEventJS extends WorldEventLevelEventJS {
+    private final WorldEventDiscardEvent event;
+    public WorldEventDiscardEventJS(WorldEventDiscardEvent worldEvent) {
         this.event = worldEvent;
     }
     @Info(value = """

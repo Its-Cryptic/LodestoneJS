@@ -31,5 +31,6 @@ public class LodestoneJSPlugin extends KubeJSPlugin {
     @Override
     public void registerEvents() {
         LodestoneJSEvents.GROUP.register();
+        LodestoneJSEvents.WORLD_EVENTS_GROUP.register();
     }
 }
