@@ -7,6 +7,7 @@ import team.lodestar.lodestone.events.types.worldevent.WorldEventRenderEvent;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 import team.lodestar.lodestone.systems.worldevent.WorldEventRenderer;
 
+@SuppressWarnings("unused")
 public class WorldEventRenderEventJS extends WorldEventInstanceEventJS {
     private final WorldEventRenderEvent event;
     public WorldEventRenderEventJS(WorldEventRenderEvent worldEvent) {

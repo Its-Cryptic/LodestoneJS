@@ -5,6 +5,7 @@ import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.events.types.worldevent.WorldEventCreationEvent;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 
+@SuppressWarnings("unused")
 public class WorldEventCreationEventJS extends WorldEventLevelEventJS {
     private final WorldEventCreationEvent event;
     public WorldEventCreationEventJS(WorldEventCreationEvent worldEvent) {
