@@ -14,7 +14,7 @@ public class WorldParticleTypeBuilderJS extends BuilderBase<ParticleType> {
 
     @Override
     public RegistryInfo getRegistryType() {
-        return null;
+        return RegistryInfo.PARTICLE_TYPE;
     }
 
     @Override

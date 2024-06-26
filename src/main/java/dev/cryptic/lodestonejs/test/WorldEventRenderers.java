@@ -10,7 +10,7 @@ import java.util.List;
 
 public class WorldEventRenderers {
     private static final List<WorldEventRenderHolder> renderers = new ArrayList<>();
-    public static final WorldEventRenderHolder TEST_RENDERER = register(TestWorldEventTypes.TEST, new TestWorldEventRenderer());
+//    public static final WorldEventRenderHolder TEST_RENDERER = register(TestWorldEventTypes.TEST, new TestWorldEventRenderer());
 
     private static WorldEventRenderHolder register(WorldEventType type, WorldEventRenderer<?> renderer) {
         WorldEventRenderHolder pair = new WorldEventRenderHolder(type, renderer);
