@@ -1,9 +1,6 @@
 package dev.cryptic.lodestonejs.kubejs.events;
 
-import dev.cryptic.lodestonejs.kubejs.events.worldevent.WorldEventCreationEventJS;
-import dev.cryptic.lodestonejs.kubejs.events.worldevent.WorldEventDiscardEventJS;
-import dev.cryptic.lodestonejs.kubejs.events.worldevent.WorldEventRenderEventJS;
-import dev.cryptic.lodestonejs.kubejs.events.worldevent.WorldEventTickEventJS;
+import dev.cryptic.lodestonejs.kubejs.events.worldevent.*;
 import dev.latvian.mods.kubejs.event.EventGroup;
 import dev.latvian.mods.kubejs.event.EventHandler;
 import dev.latvian.mods.kubejs.event.Extra;
@@ -65,5 +62,4 @@ public class LodestoneJSEvents {
     private static WorldEventType getType(WorldEventInstanceEvent event) {
         return event.getWorldEvent().type;
     }
-
 }

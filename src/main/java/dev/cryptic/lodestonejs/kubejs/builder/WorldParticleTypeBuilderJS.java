@@ -6,7 +6,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.resources.ResourceLocation;
 import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticleType;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "rawtypes"})
 public class WorldParticleTypeBuilderJS extends BuilderBase<ParticleType> {
     public WorldParticleTypeBuilderJS(ResourceLocation i) {
         super(i);

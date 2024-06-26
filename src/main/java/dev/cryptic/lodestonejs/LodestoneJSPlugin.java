@@ -9,9 +9,8 @@ import dev.latvian.mods.kubejs.script.BindingsEvent;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 
+@SuppressWarnings("rawtypes")
 public class LodestoneJSPlugin extends KubeJSPlugin {
-    //public static final RegistryInfo<WorldEventType> WORLD_EVENT_TYPE_REGISTRY = RegistryInfo.of(LodestoneWorldEventTypeRegistry.EVENT_TYPES, WorldEventType.class);
-
     public static final RegistryInfo<ParticleType> PARTICLE_TYPE_REGISTRY = RegistryInfo.of(Registries.PARTICLE_TYPE, ParticleType.class);
 
     @Override
