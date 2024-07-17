@@ -2,6 +2,7 @@ package dev.cryptic.lodestonejs;
 
 import com.mojang.logging.LogUtils;
 import dev.cryptic.lodestonejs.kubejs.events.LodestoneJSEvents;
+import dev.cryptic.lodestonejs.kubejs.events.LodestoneJSRegistryEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,10 +20,13 @@ public class LodestoneJS {
 
     public LodestoneJS() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
 
         LodestoneJSEvents.initEvents();
+        LodestoneJSRegistryEvents.init();
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
