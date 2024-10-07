@@ -4,17 +4,24 @@ import dev.cryptic.lodestonejs.kubejs.LodestoneJSBinding;
 import dev.cryptic.lodestonejs.kubejs.builder.WorldParticleTypeBuilderJS;
 import dev.cryptic.lodestonejs.kubejs.events.LodestoneJSEvents;
 import dev.cryptic.lodestonejs.kubejs.events.LodestoneJSRegistryEvents;
-import dev.latvian.mods.kubejs.KubeJSPlugin;
+import dev.cryptic.lodestonejs.worldevent.CustomWorldEventType;
+import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
+import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;
 import dev.latvian.mods.kubejs.registry.RegistryInfo;
-import dev.latvian.mods.kubejs.script.BindingsEvent;
+import dev.latvian.mods.kubejs.script.BindingRegistry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypeRegistry;
+import team.lodestar.lodestone.registry.common.LodestoneWorldEventTypes;
 import team.lodestar.lodestone.systems.model.obj.lod.LODStrategy;
 
 @SuppressWarnings("rawtypes")
-public class LodestoneJSPlugin extends KubeJSPlugin {
+public class LodestoneJSPlugin implements KubeJSPlugin {
     public static final RegistryInfo<ParticleType> PARTICLE_TYPE_REGISTRY = RegistryInfo.of(Registries.PARTICLE_TYPE, ParticleType.class);
+
+    @Override
+    public void registerBuilderTypes(BuilderTypeRegistry registry) {
+        registry.addDefault(LodestoneWorldEventTypes.WORLD_EVENT_TYPE_KEY, CustomWorldEventType.Builder.class, CustomWorldEventType.Builder::new);
+    }
 
     @Override
     public void init() {
@@ -22,10 +29,10 @@ public class LodestoneJSPlugin extends KubeJSPlugin {
     }
 
     @Override
-    public void registerBindings(BindingsEvent event) {
+    public void registerBindings(BindingRegistry event) {
         event.add("LodestoneJS", LodestoneJSBinding.class);
         event.add("LODStrategy", LODStrategy.class);
-        event.add("LodestoneRenderTypeRegistry", LodestoneRenderTypeRegistry.class);
+        //event.add("LodestoneRenderTypeRegistry", LodestoneRenderTypeRegistry.class);
     }
 
     @Override
