@@ -11,8 +11,8 @@ import team.lodestar.lodestone.systems.particle.world.type.LodestoneWorldParticl
 public class LodestoneJSClientSetup {
     @SubscribeEvent
     public static void registerParticleFactory(RegisterParticleProvidersEvent event) {
-        LodestoneJSPlugin.PARTICLE_TYPE_REGISTRY.objects.values().forEach(b -> {
-            event.registerSpriteSet(b.get(), LodestoneWorldParticleType.Factory::new);
-        });
+//        LodestoneJSPlugin.PARTICLE_TYPE_REGISTRY.objects.values().forEach(b -> {
+//            event.registerSpriteSet(b.get(), LodestoneWorldParticleType.Factory::new);
+//        });
     }
 }

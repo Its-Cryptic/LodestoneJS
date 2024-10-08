@@ -19,7 +19,21 @@ build
 
 # other
 eclipse
-run
+run/*
+!run/kubejs/
+run/kubejs/*
+!run/kubejs/client_scripts/
+!run/kubejs/server_scripts/
+!run/kubejs/startup_scripts/
+run/kubejs/client_scripts/*
+run/kubejs/server_scripts/*
+run/kubejs/startup_scripts/*
+!run/kubejs/client_scripts/test/
+!run/kubejs/server_scripts/test/
+!run/kubejs/startup_scripts/test/
+!run/kubejs/client_scripts/src/
+!run/kubejs/server_scripts/src/
+!run/kubejs/startup_scripts/src/
 
 # Files from Forge MDK
 forge*changelog.txt

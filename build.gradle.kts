@@ -132,11 +132,8 @@ dependencies {
     implementation("dev.latvian.mods:rhino:${property("rhino_version")}")
     implementation("dev.latvian.mods:kubejs-neoforge:${property("kubejs_version")}")
 
-    // Architechtury dependency
-    //implementation("dev.architectury:architectury-forge:9.1.13")
-
     // ProbeJS
-    //runtimeOnly("curse.maven:probejs-585406:5227399")
+    runtimeOnly("curse.maven:probejs-585406:5536459")
 }
 
 val generateModMetadata by tasks.registering(ProcessResources::class) {
