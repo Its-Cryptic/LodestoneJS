@@ -23,8 +23,7 @@ public class CustomWorldEventRenderer extends WorldEventRenderer<CustomWorldEven
 
     @Override
     public boolean canRender(CustomWorldEvent instance) {
-        //return shouldRenderPredicate.test(instance.getData());
-        return true;
+        return shouldRenderPredicate.test(instance.getData());
     }
 
     public static class Builder {
