@@ -31,17 +31,17 @@ StartupEvents.registry('lodestone:world_event_type', event => {
         })
         .isClientSynced(true)
         .render(ctx => {
-            let poseStack = ctx.poseStack
-            let data = ctx.data
+            let data = ctx.data()
+            let poseStack = ctx.poseStack()
             console.log(`PoseStack: ${poseStack}`)
             console.log(`Data: ${data}`)
-            //poseStack.pushPose()
-            // let vfxBuilder = VFXBuilders.createWorld()
-            // let token = token = RenderTypeToken.createCachedToken(LodestoneLib.lodestonePath("textures/painting/lefunny.png"))
-            // let renderType = LodestoneRenderTypes.TRANSPARENT_TEXTURE_TRIANGLE.applyAndCache(token)
-            // vfxBuilder.setRenderType(renderType)
-            // vfxBuilder.renderSphere(poseStack, 5, 30, 30)
-            //poseStack.popPose()
+            poseStack.pushPose()
+            let vfxBuilder = VFXBuilders.createWorld()
+            let token = token = RenderTypeToken.createCachedToken(LodestoneLib.lodestonePath("textures/painting/lefunny.png"))
+            let renderType = LodestoneRenderTypes.TRANSPARENT_TEXTURE_TRIANGLE.applyAndCache(token)
+            vfxBuilder.setRenderType(renderType)
+            vfxBuilder.renderSphere(poseStack, 5, 30, 30)
+            poseStack.popPose()
             console.log("Rendering world event")
         })
         .shouldRender(data => {

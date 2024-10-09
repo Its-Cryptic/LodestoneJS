@@ -30,9 +30,12 @@ public class WorldEventInstanceData {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("{");
-        for (String key : dataMap.keySet()) {
-            builder.append(key).append(": ").append(dataMap.get(key)).append(", ");
+        builder.append("WorldEventInstanceData{");
+        for (int i = 0; i < dataMap.keySet().size(); i++) {
+            builder.append(dataMap.keySet().toArray()[i]).append(": ").append(dataMap.values().toArray()[i]);
+            if (i < dataMap.keySet().size() - 1) {
+                builder.append(", ");
+            }
         }
         builder.append("}");
         return builder.toString();
