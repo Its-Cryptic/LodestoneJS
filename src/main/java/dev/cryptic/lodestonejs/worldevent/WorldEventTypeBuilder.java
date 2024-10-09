@@ -6,30 +6,46 @@ import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.registry.client.LodestoneWorldEventRenderers;
 import team.lodestar.lodestone.systems.worldevent.WorldEventType;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 @SuppressWarnings("unused")
 public class WorldEventTypeBuilder extends BuilderBase<WorldEventType> {
     private final CustomWorldEvent.Builder instanceBuilder;
+    private final CustomWorldEventRenderer.Builder rendererBuilder;
     private boolean isClientSynced;
 
     public WorldEventTypeBuilder(ResourceLocation id) {
         super(id);
         this.instanceBuilder = new CustomWorldEvent.Builder(id);
+        this.rendererBuilder = new CustomWorldEventRenderer.Builder();
     }
 
     @Info("Makes the event also run on the client")
-    public WorldEventTypeBuilder isClientSynced() {
-        this.isClientSynced = true;
-        LodestoneJS.LOGGER.info("WorldEventTypeBuilder.isClientSynced() called");
+    public WorldEventTypeBuilder isClientSynced(boolean isClientSynced) {
+        this.isClientSynced = isClientSynced;
         return this;
     }
 
     @Info("Called every tick on both client and server")
-    public WorldEventTypeBuilder onTick(BiConsumer<CustomWorldEvent, Level> tickConsumer) {
-        this.instanceBuilder.onTick(tickConsumer);
+    public WorldEventTypeBuilder tick(BiConsumer<CustomWorldEvent, Level> tickConsumer) {
+        this.instanceBuilder.tick(tickConsumer);
+        return this;
+    }
+
+    @Info("Allows you to create a renderer for this world event")
+    public WorldEventTypeBuilder render(Consumer<WorldEventRenderContext> renderConsumer) {
+        this.rendererBuilder.render(renderConsumer);
+        return this;
+    }
+
+    @Info("Allows you to specify when the event should render using a predicate")
+    public WorldEventTypeBuilder shouldRender(Predicate<WorldEventInstanceData> shouldRenderPredicate) {
+        this.rendererBuilder.shouldRender(shouldRenderPredicate);
         return this;
     }
 
@@ -53,6 +69,8 @@ public class WorldEventTypeBuilder extends BuilderBase<WorldEventType> {
 
     @Override
     public WorldEventType createObject() {
-        return new WorldEventType(id, instanceBuilder::build, isClientSynced);
+        WorldEventType type = new WorldEventType(id, instanceBuilder::build, isClientSynced);
+        if (isClientSynced) LodestoneWorldEventRenderers.registerRenderer(type, rendererBuilder.build());
+        return type;
     }
 }

@@ -26,4 +26,15 @@ public class WorldEventInstanceData {
     public Object read(String id) {
         return this.dataMap.get(id);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        for (String key : dataMap.keySet()) {
+            builder.append(key).append(": ").append(dataMap.get(key)).append(", ");
+        }
+        builder.append("}");
+        return builder.toString();
+    }
 }

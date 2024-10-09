@@ -67,7 +67,7 @@ public class CustomWorldEvent extends WorldEventInstance {
             this.id = id;
         }
 
-        public void onTick(BiConsumer<CustomWorldEvent, Level> tickConsumer) {
+        public void tick(BiConsumer<CustomWorldEvent, Level> tickConsumer) {
             this.tickConsumer = tickConsumer;
         }
 

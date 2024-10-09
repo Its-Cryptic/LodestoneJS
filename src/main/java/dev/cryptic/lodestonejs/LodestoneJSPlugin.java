@@ -13,8 +13,12 @@ import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;
 import dev.latvian.mods.kubejs.script.BindingRegistry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
+import team.lodestar.lodestone.LodestoneLib;
+import team.lodestar.lodestone.registry.client.LodestoneRenderTypes;
 import team.lodestar.lodestone.registry.common.LodestoneWorldEventTypes;
 import team.lodestar.lodestone.systems.model.obj.lod.LODStrategy;
+import team.lodestar.lodestone.systems.rendering.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 import team.lodestar.lodestone.systems.worldevent.WorldEventInstance;
 import team.lodestar.lodestone.systems.worldevent.WorldEventType;
 
@@ -42,6 +46,11 @@ public class LodestoneJSPlugin implements KubeJSPlugin {
         event.add("WorldEventInstance", WorldEventInstance.class);
         event.add("WorldEventInstanceData", WorldEventInstanceData.class);
         event.add("LodestoneJSUtils", LodestoneJSUtils.class);
+        event.add("VFXBuilders", VFXBuilders.class);
+        event.add("LodestoneRenderTypes", LodestoneRenderTypes.class);
+        event.add("RenderTypeToken", RenderTypeToken.class);
+        event.add("LodestoneLib", LodestoneLib.class);
+        //event.add("WorldVFXBuilder", VFXBuilders.WorldVFXBuilder.class);
         //event.add("LodestoneRenderTypeRegistry", LodestoneRenderTypeRegistry.class);
     }
 }

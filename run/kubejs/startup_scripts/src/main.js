@@ -3,17 +3,21 @@ StartupEvents.registry('lodestone:world_event_type', event => {
         .setupAdditionalData(data => {
             data.create("tickCount", 0)
             data.create("duration", 600)
+            data.create("shouldRender", true)
         })
         .saveAdditionalData((data, nbt) => {
             nbt.putInt('tickCount', data.read("tickCount"))
             nbt.putInt('duration', data.read("duration"))
+            nbt.putBoolean('shouldRender', Boolean(data.read("shouldRender")))
         })
         .readAdditionalData((data, nbt) => {
             data.write("tickCount", nbt.getInt('tickCount'))
             data.write("duration", nbt.getInt('duration'))
+            data.write("shouldRender", nbt.getBoolean('shouldRender'))
         })
-        .onTick((instance, level) => {
-            if (level.isClientSide()) return
+        .tick((instance, level) => {
+            //if (level.isClientSide()) return
+            console.log(`instance: ${instance}, level: ${level}`)
 
             let data = instance.getData()
             let tickCount = data.read("tickCount")
@@ -24,5 +28,23 @@ StartupEvents.registry('lodestone:world_event_type', event => {
             if (tickCount + 1 >= duration) {
                 instance.end(level)
             }
+        })
+        .isClientSynced(true)
+        .render(ctx => {
+            let poseStack = ctx.poseStack
+            let data = ctx.data
+            console.log(`PoseStack: ${poseStack}`)
+            console.log(`Data: ${data}`)
+            //poseStack.pushPose()
+            // let vfxBuilder = VFXBuilders.createWorld()
+            // let token = token = RenderTypeToken.createCachedToken(LodestoneLib.lodestonePath("textures/painting/lefunny.png"))
+            // let renderType = LodestoneRenderTypes.TRANSPARENT_TEXTURE_TRIANGLE.applyAndCache(token)
+            // vfxBuilder.setRenderType(renderType)
+            // vfxBuilder.renderSphere(poseStack, 5, 30, 30)
+            //poseStack.popPose()
+            console.log("Rendering world event")
+        })
+        .shouldRender(data => {
+            return true
         })
 })
