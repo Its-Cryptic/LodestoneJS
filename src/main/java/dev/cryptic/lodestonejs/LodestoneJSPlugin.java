@@ -1,18 +1,13 @@
 package dev.cryptic.lodestonejs;
 
-import dev.cryptic.lodestonejs.kubejs.LodestoneJSBinding;
 //import dev.cryptic.lodestonejs.kubejs.builder.WorldParticleTypeBuilderJS;
 import dev.cryptic.lodestonejs.kubejs.LodestoneJSUtils;
-import dev.cryptic.lodestonejs.kubejs.events.LodestoneJSEvents;
-import dev.cryptic.lodestonejs.kubejs.events.LodestoneJSRegistryEvents;
 import dev.cryptic.lodestonejs.worldevent.WorldEventInstanceData;
 import dev.cryptic.lodestonejs.worldevent.WorldEventTypeBuilder;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
 import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;
 //import dev.latvian.mods.kubejs.registry.RegistryInfo;
 import dev.latvian.mods.kubejs.script.BindingRegistry;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.Registries;
 import team.lodestar.lodestone.LodestoneLib;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypes;
 import team.lodestar.lodestone.registry.common.LodestoneWorldEventTypes;
@@ -39,7 +34,6 @@ public class LodestoneJSPlugin implements KubeJSPlugin {
 
     @Override
     public void registerBindings(BindingRegistry event) {
-        event.add("LodestoneJS", LodestoneJSBinding.class);
         event.add("LODStrategy", LODStrategy.class);
         event.add("WorldEventTypeBuilder", WorldEventTypeBuilder.class);
         event.add("WorldEventType", WorldEventType.class);
