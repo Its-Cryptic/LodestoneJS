@@ -1,7 +1,6 @@
 package dev.cryptic.lodestonejs.kubejs;
 
 import dev.cryptic.lodestonejs.worldevent.CustomWorldEvent;
-import dev.cryptic.lodestonejs.worldevent.WorldEventInstanceData;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
@@ -28,20 +27,20 @@ public class LodestoneJSUtils {
         WorldEventHandler.addWorldEvent(level, type.supplier.getInstance());
     }
 
-    @Info("Spawns the specified world event with custom data")
-    public static void spawnWorldEvent(String id, Level level, Consumer<WorldEventInstanceData> dataConsumer) {
+    @Info("Spawns the specified world event with a consumer for custom data")
+    public static void spawnWorldEvent(String id, Level level, Consumer<WorldEventInstance> instanceConsumer) {
         ResourceLocation eventID = ResourceLocation.tryParse(id);
         if (eventID == null) return;
         WorldEventType type = LodestoneWorldEventTypes.WORLD_EVENT_TYPE_REGISTRY.get(eventID);
-        spawnWorldEvent(type, level, dataConsumer);
+        spawnWorldEvent(type, level, instanceConsumer);
     }
 
-    @Info("Spawns the specified world event")
-    public static void spawnWorldEvent(WorldEventType type, Level level, Consumer<WorldEventInstanceData> dataConsumer) {
+    @Info("Spawns the specified world event with a consumer for custom data")
+    public static void spawnWorldEvent(WorldEventType type, Level level, Consumer<WorldEventInstance> instanceConsumer) {
         if (type == null) return;
         WorldEventInstance worldEvent = type.supplier.getInstance();
         if (worldEvent instanceof CustomWorldEvent customInstance) {
-            dataConsumer.accept(customInstance.getData());
+            instanceConsumer.accept(customInstance);
         }
         WorldEventHandler.addWorldEvent(level, worldEvent);
     }

@@ -12,24 +12,16 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class CustomWorldEvent extends WorldEventInstance {
-    private WorldEventInstanceData data;
+    private final WorldEventInstanceData data;
     private BiConsumer<CustomWorldEvent, Level> tickConsumer;
-    private Consumer<WorldEventInstanceData> defaultDataConsumer;
-    private BiConsumer<WorldEventInstanceData, CompoundTag> addSaveDataConsumer;
-    private BiConsumer<WorldEventInstanceData, CompoundTag> readSaveDataConsumer;
-    public CustomWorldEvent(ResourceLocation id, BiConsumer<CustomWorldEvent, Level> tickConsumer, Consumer<WorldEventInstanceData> defaultDataConsumer, BiConsumer<WorldEventInstanceData,CompoundTag> addConsumer, BiConsumer<WorldEventInstanceData, CompoundTag> readConsumer) {
+    private Consumer<WorldEventInstanceData> createDataConsumer;
+    private BiConsumer<WorldEventInstanceData, CompoundTag> writeSaveDataConsumer, readSaveDataConsumer;
+    public CustomWorldEvent(ResourceLocation id) {
         this(LodestoneWorldEventTypes.WORLD_EVENT_TYPE_REGISTRY.get(id));
-        this.data = new WorldEventInstanceData();
-        this.tickConsumer = tickConsumer;
-        this.defaultDataConsumer = defaultDataConsumer;
-        this.addSaveDataConsumer = addConsumer;
-        this.readSaveDataConsumer = readConsumer;
-        this.createAdditionalSaveData();
     }
     public CustomWorldEvent(WorldEventType type) {
         super(type);
         this.data = new WorldEventInstanceData();
-        this.createAdditionalSaveData();
     }
 
     @Override
@@ -38,12 +30,12 @@ public class CustomWorldEvent extends WorldEventInstance {
     }
 
     public void createAdditionalSaveData() {
-        if (this.defaultDataConsumer != null) this.defaultDataConsumer.accept(this.data);
+        if (this.createDataConsumer != null) this.createDataConsumer.accept(this.data);
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
-        if (this.addSaveDataConsumer != null) this.addSaveDataConsumer.accept(this.data, tag);
+        if (this.writeSaveDataConsumer != null) this.writeSaveDataConsumer.accept(this.data, tag);
     }
 
     @Override
@@ -59,32 +51,22 @@ public class CustomWorldEvent extends WorldEventInstance {
 
     public static class Builder {
         private final ResourceLocation id;
-        private BiConsumer<CustomWorldEvent, Level> tickConsumer;
-        private Consumer<WorldEventInstanceData> createDataConsumer;
-        private BiConsumer<WorldEventInstanceData, CompoundTag> addSaveDataConsumer, readSaveDataConsumer;
+        protected BiConsumer<CustomWorldEvent, Level> tickConsumer = (instance, level) -> {};
+        protected Consumer<WorldEventInstanceData> createDataConsumer = data -> {};
+        protected BiConsumer<WorldEventInstanceData, CompoundTag> writeSaveDataConsumer, readSaveDataConsumer = (data, tag) -> {};
 
         public Builder(ResourceLocation id) {
             this.id = id;
         }
 
-        public void tick(BiConsumer<CustomWorldEvent, Level> tickConsumer) {
-            this.tickConsumer = tickConsumer;
-        }
-
-        public void createInstanceData(Consumer<WorldEventInstanceData> createDataConsumer) {
-            this.createDataConsumer = createDataConsumer;
-        }
-
-        public void writeSaveData(BiConsumer<WorldEventInstanceData, CompoundTag> addSaveDataConsumer) {
-            this.addSaveDataConsumer = addSaveDataConsumer;
-        }
-
-        public void readSaveData(BiConsumer<WorldEventInstanceData, CompoundTag> readSaveDataConsumer) {
-            this.readSaveDataConsumer = readSaveDataConsumer;
-        }
-
         public CustomWorldEvent build() {
-            return new CustomWorldEvent(id, tickConsumer, createDataConsumer, addSaveDataConsumer, readSaveDataConsumer);
+            CustomWorldEvent instance = new CustomWorldEvent(id);
+            instance.tickConsumer = tickConsumer;
+            instance.createDataConsumer = createDataConsumer;
+            instance.writeSaveDataConsumer = writeSaveDataConsumer;
+            instance.readSaveDataConsumer = readSaveDataConsumer;
+            instance.createAdditionalSaveData(); // Ensures the event instance holds default values to prevent issues
+            return instance;
         }
     }
 }

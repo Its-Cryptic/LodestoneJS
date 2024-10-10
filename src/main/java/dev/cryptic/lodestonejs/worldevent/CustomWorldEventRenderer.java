@@ -8,13 +8,8 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class CustomWorldEventRenderer extends WorldEventRenderer<CustomWorldEvent> {
-    private final Consumer<WorldEventRenderContext> renderConsumer;
-    private final Predicate<WorldEventInstanceData> shouldRenderPredicate;
-
-    public CustomWorldEventRenderer(Consumer<WorldEventRenderContext> renderConsumer, Predicate<WorldEventInstanceData> shouldRenderPredicate) {
-        this.renderConsumer = renderConsumer;
-        this.shouldRenderPredicate = shouldRenderPredicate;
-    }
+    protected Consumer<WorldEventRenderContext> renderConsumer = (context) -> {};
+    protected Predicate<WorldEventInstanceData> shouldRenderPredicate = (data) -> true;
 
     @Override
     public void render(CustomWorldEvent instance, PoseStack poseStack, MultiBufferSource bufferSource, float partialTicks) {
@@ -24,26 +19,5 @@ public class CustomWorldEventRenderer extends WorldEventRenderer<CustomWorldEven
     @Override
     public boolean canRender(CustomWorldEvent instance) {
         return shouldRenderPredicate.test(instance.getData());
-    }
-
-    public static class Builder {
-        private Consumer<WorldEventRenderContext> renderConsumer = (context) -> {};
-        private Predicate<WorldEventInstanceData> shouldRenderPredicate = (data) -> true;
-
-        public Builder() {
-        }
-
-        public void render(Consumer<WorldEventRenderContext> renderConsumer) {
-            this.renderConsumer = renderConsumer;
-        }
-
-        public void shouldRender(Predicate<WorldEventInstanceData> shouldRenderPredicate) {
-            this.shouldRenderPredicate = shouldRenderPredicate;
-        }
-
-        public CustomWorldEventRenderer build() {
-            return new CustomWorldEventRenderer(renderConsumer, shouldRenderPredicate);
-        }
-
     }
 }

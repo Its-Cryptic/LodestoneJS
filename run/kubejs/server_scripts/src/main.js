@@ -1,6 +1,7 @@
 EntityEvents.death(event => {
     let {level, entity} = event
-    LodestoneJSUtils.spawnWorldEvent('mymod:myworldevent', level, data => {
+    LodestoneJSUtils.spawnWorldEvent('mymod:myworldevent', level, instance => {
+        let data = instance.getData()
         data.write("duration", getDuration())
     })
     console.log('spawned world event')
